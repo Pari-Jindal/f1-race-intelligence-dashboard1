@@ -1,0 +1,91 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    color-scheme: dark;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 5rem;
+  }
+
+  body {
+    @apply bg-base text-white font-body antialiased;
+    overflow-x: hidden;
+  }
+
+  ::selection {
+    background: rgba(225, 6, 0, 0.35);
+    color: #fff;
+  }
+
+  /* Custom scrollbar */
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #0a0a0a;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: linear-gradient(#e10600, #9a0400);
+    border-radius: 8px;
+    border: 2px solid #0a0a0a;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #e10600;
+  }
+}
+
+@layer components {
+  .section-heading {
+    @apply font-display text-3xl font-900 uppercase tracking-wider text-white sm:text-4xl md:text-5xl;
+  }
+  .card-glow {
+    @apply rounded-xl border border-f1red/20 bg-neutral-900/60 transition-all duration-300 hover:border-f1red/50 hover:shadow-red-glow;
+  }
+  .btn-race {
+    @apply relative inline-flex items-center justify-center gap-2 px-7 py-3.5 font-heading text-sm font-700 uppercase tracking-widest transition-all duration-300;
+    clip-path: polygon(0 0, 100% 0, 100% 70%, calc(100% - 14px) 100%, 0 100%);
+  }
+  .btn-race-primary {
+    @apply btn-race bg-f1red text-white shadow-red-glow hover:bg-f1red-600 hover:shadow-red-glow-lg;
+  }
+  .btn-race-outline {
+    @apply btn-race border border-f1red/60 text-white hover:border-f1red hover:bg-f1red/10;
+  }
+  .red-divider {
+    @apply relative h-px w-full bg-gradient-to-r from-transparent via-f1red/60 to-transparent;
+  }
+  .red-divider::before {
+    content: "";
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 140px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, #e10600, transparent);
+    box-shadow: 0 0 14px 2px rgba(225, 6, 0, 0.5);
+  }
+}
+
+/* Font weight helpers (Tailwind's numeric weights map cleanly, but Orbitron uses 900) */
+.font-900 { font-weight: 900; }
+.font-800 { font-weight: 800; }
+.font-700 { font-weight: 700; }
+
+/* Reveal-on-scroll utility (IntersectionObserver toggles .is-visible) */
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1), transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: opacity, transform;
+}
+.reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
